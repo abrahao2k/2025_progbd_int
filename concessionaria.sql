@@ -129,23 +129,82 @@ where modelo like "%honda%" and valor <= 85000;
 
 # FUNÇÕES AGREGADAS
 # 11. somar o valor de todos os veiculos da concessionária SUM
+select SUM(valor) from veiculos;
+
+select sum(valor) from veiculos
+where modelo like "%Fiat%";         # somar todos os carros FIAT
+
+select sum(valor) as soma from veiculos
+where ano = 2023;
+
+# select modelo, valor_total_do_estoque as vt 
+# from veiculos
+# where vt > 500000;
+
+select modelo as m, valor as v  # renomear colunas
+from veiculos;
 
 # 12. média de valor dos veiculos da concessionária AVG
 
+select AVG(valor) as média from veiculos;
+
 # 13. média de valor dos veículos chevrolet
 
+select avg(valor) from veiculos
+where modelo like "chev%";        
+
+# ignora valor NULL
+# se for 0 (zero) é incluido no cálculo da média
+
+select * from veiculos
+where modelo like "chev%";
+
 # 14. contar quantos veículos há na concessionária COUNT
+select count(*) as qtd from veiculos;
 
 # 15. contar os veículos da nissan estão cadastrados
 
-# 16. valor do veículo mais caro MAX
+select count(*) as qtd from veiculos
+where modelo like "nissan%";
 
-# 17. valor do veículo mais barato MIN
+# 16. valor do veículo mais caro MAX (maior valor)
+select max(valor) from veiculos;
+
+select max(ano) from veiculos #qual ano do carro mais novo fiat
+where modelo like "fiat%";
+
+# 17. ano do veículo mais antigo MIN (menor valor)
+select min(ano) from veiculos;
+
+
+# GROUP BY - AGRUPAMENTO
+# quantos carros de cada ano tem cadastrado
+select ano, count(*) from veiculos
+group by ano;
+
 
 ## SUB-CONSULTAS ######################################
 
 # 18. todas as informações do veículo mais caro 
+select * from veiculos where valor = 
+(select max(valor) from veiculos);
 
-# 19. todas as informações do veículo mais barato
+# 19. todas as informações do veículo mais barato,
+select * from veiculos where valor = 
+(select min(valor) from veiculos where valor > 0 );
 
 # 20. veículos cujo preço é abaixo da média de preços
+select * from veiculos where valor <
+(select avg(valor) from veiculos where valor > 0);
+
+
+# USANDO ORDER BY E LIMIT PARA VER OS MAIOR/MENOR
+select * from veiculos order by valor desc limit 1;
+
+# LIMIT - diz quantos itens deve mostrar
+
+
+
+
+
+
