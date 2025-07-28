@@ -1,0 +1,71 @@
+#TIPO DE DADO
+# DATE
+
+# formato que usamos: 31/12/2025 (dd/mm/aaaa)
+# formato mysql 2025-12-31 (aaaa-mm-dd)
+
+create database pessoas;
+use pessoas;
+
+create table gente (
+codigo int primary key auto_increment,
+nome varchar(100),
+datanasc date);
+
+insert into gente values(1,"Ana","2010-11-26");
+insert into gente values(2,"Ney","13/05/2012");
+select * from gente;
+
+# FUNÇÕES PARA DATA
+
+# DATA ATUAL DO SISTEMA - curdate()
+select curdate() as data_atual;
+
+insert into gente values (3,'Caio', curdate() );
+
+select * from gente where datanasc = curdate();
+
+# SEPARAR AS PARTES DA DATA #######################################
+# Apenas o ano - YEAR()
+select year(curdate()) as ano;
+select year("1998-11-22");
+select nome, year(datanasc) from gente;
+
+# Apenas o mês - MONTH()
+select month(curdate());
+select month("1998-11-22");
+select nome, month(datanasc) from gente;
+
+# Apenas o dia - DAY()
+select day(curdate());
+select day("1998-11-22");
+select nome, day(datanasc) from gente;
+
+# NOME DO DIA (texto) - DAYNAME()
+select dayname("2007-01-11"); #Sunday, Monday...
+
+# NOME DO MÊS (texto) - MONTHNAME()
+select monthname("2027-12-09");
+
+# NUMERO DO DIA (1 a 7) - DAYOFWEEK()
+select dayofweek(curdate()); # 1 - Domingo, 2 - Segunda, 3 - Terça...
+
+# DIA DO ANO (1 a 366) - DAYOFYEAR()
+select dayofyear(curdate());
+
+# SEMANA DO ANO (1 a 53) - WEEK()
+select week(curdate());
+
+# DIFERENÇA ENTRE DATAS (quantos dias se passaram)
+select datediff(curdate(), "2010-11-09");
+select datediff(curdate(),"2025-07-01");
+
+# ADICIONAR DIAS EM UMA DATA
+select adddate(curdate(), 15);
+
+select adddate(curdate(), -10);
+
+
+# FORMATAR UMA DATA
+select date_format(
+curdate(), "%d/%m/%Y");
