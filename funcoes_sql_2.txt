@@ -1,0 +1,62 @@
+# TIPO DE DADO
+# TIME
+
+# FORMATO DE HORA
+# hh:mm:ss          14:29:45
+
+# HORA ATUAL - CURTIME()
+select curtime() as hora_atual;
+
+
+create database fabrica;
+use fabrica;
+
+create table ponto(
+codigo int primary key auto_increment,
+funcionario varchar(100),
+entrada time,
+saida time);
+
+insert into ponto values(1,'Abel',curtime(), null);
+insert into ponto values(2,'Bela',curtime(), null);
+
+select * from ponto;
+
+# marcar a saida (update)
+update ponto 
+set saida = curtime() 
+where codigo = 2;
+
+# separar as partes da hora
+# apenas a hora - hour()
+select hour(curtime()) as hora;
+
+# apenas os minutos - minute()
+select minute(curtime()) as minutos;
+
+# apenas os segundos - second()
+select second(curtime()) as segundos;
+
+# calcular a diferença entre dois tempos
+select timediff("22:15:36", "19:15:37") 
+as diferença;
+
+# diferença incluindo data e hora
+select timediff("2025-08-05 02:14:35",
+"2025-08-02 21:53:00") as passou;
+
+# TIPO TIMESTAMP (DATA E HORA JUNTOS)
+# aaaa-mm-dd hh:mm:ss
+
+select now() as agora;
+
+create table ponto2(
+codigo int primary key auto_increment,
+funcionario varchar(100),
+tipo varchar(1),
+marcacao timestamp);
+
+insert into ponto2 values(3,'Caio','E', now());
+
+select * from ponto2;
+
